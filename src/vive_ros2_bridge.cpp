@@ -84,14 +84,13 @@ public:
 	void RunMainLoop();
 
 	vr::HmdQuaternion_t GetRotation(vr::HmdMatrix34_t matrix);
-    vr::HmdVector3_t GetPosition(vr::HmdMatrix34_t matrix);
-    void printPositionalData();
-    void printDevicePositionalData(const char* deviceName, vr::HmdMatrix34_t poseMatrix, vr::HmdVector3_t position, vr::HmdQuaternion_t quaternion);
+  vr::HmdVector3_t GetPosition(vr::HmdMatrix34_t matrix);
+  void printPositionalData();
+  void printDevicePositionalData(const char* deviceName, vr::HmdMatrix34_t poseMatrix, vr::HmdVector3_t position, vr::HmdQuaternion_t quaternion);
 	
 	bool HandleInput();
 	void ProcessVREvent( const vr::VREvent_t & event );
 
-	Matrix4 ConvertSteamVRMatrixToMatrix4( const vr::HmdMatrix34_t &matPose );
 
 
 private: 
@@ -358,7 +357,7 @@ void CMainApplication::printPositionalData()
  
                 case vr::TrackedControllerRole_LeftHand:
                 case vr::TrackedControllerRole_RightHand:
-                    printDevicePositionalData(whichHand.c_str(), poseMatrix, position, quaternion);
+                    // printDevicePositionalData(whichHand.c_str(), poseMatrix, position, quaternion);
                     m_publisher->Publish(whichHand, position, quaternion);
  
                     break;
@@ -438,17 +437,6 @@ void CMainApplication::ProcessVREvent( const vr::VREvent_t & event )
 		}
 		break;
 	}
-}
-
-Matrix4 CMainApplication::ConvertSteamVRMatrixToMatrix4( const vr::HmdMatrix34_t &matPose )
-{
-	Matrix4 matrixObj(
-		matPose.m[0][0], matPose.m[1][0], matPose.m[2][0], 0.0,
-		matPose.m[0][1], matPose.m[1][1], matPose.m[2][1], 0.0,
-		matPose.m[0][2], matPose.m[1][2], matPose.m[2][2], 0.0,
-		matPose.m[0][3], matPose.m[1][3], matPose.m[2][3], 1.0f
-		);
-	return matrixObj;
 }
 
 //-----------------------------------------------------------------------------
