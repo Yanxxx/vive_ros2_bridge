@@ -20,15 +20,11 @@ class FramePublisher : public rclcpp::Node
 public:
   FramePublisher():Node("vive_ros2_bridge")
   {
-    // Declare and acquire `turtlename` parameter
-    // turtlename_ = this->declare_parameter<std::string>("turtlename", "turtle");
-
     // Initialize the transform broadcaster
     tf_broadcaster_ =
       std::make_unique<tf2_ros::TransformBroadcaster>(*this);
   }
   void Publish(const std::string deviceName,
-                        // const vr::TrackedDeviceIndex_t unDevice, 
                         const vr::HmdVector3_t position, 
                         const vr::HmdQuaternion_t quaternion){
   handle_vive_pose(deviceName, position, quaternion);
@@ -36,7 +32,6 @@ public:
 
 private:
   void handle_vive_pose(const std::string deviceName,
-                        // const vr::TrackedDeviceIndex_t unDevice, 
                         const vr::HmdVector3_t position, 
                         const vr::HmdQuaternion_t quaternion)
   {
@@ -109,7 +104,7 @@ private:
 };
 
 //-----------------------------------------------------------------------------
-// Purpose:
+// Purpose: terminal output function
 //-----------------------------------------------------------------------------
 void dprintf( const char *fmt, ... )
 {
@@ -202,28 +197,8 @@ bool CMainApplication::InitROS(int argc, char *argv[])
 {
   
   auto logger = rclcpp::get_logger("logger");
-
-  // Obtain parameters from command line arguments
-  // if (argc != 8) {
-  //   RCLCPP_INFO(
-  //     logger, "Invalid number of parameters\nusage: "
-  //     "$ ros2 run learning_tf2_cpp static_turtle_tf2_broadcaster "
-  //     "child_frame_name x y z roll pitch yaw");
-  //   return 1;
-  // }
-
-  // As the parent frame of the transform is `world`, it is
-  // necessary to check that the frame name passed is different
-  // if (strcmp(argv[1], "world") == 0) {
-  //   RCLCPP_INFO(logger, "Your static turtle name cannot be 'world'");
-  //   return 2;
-  // }
-
-  // Pass parameters and initialize node
-  // const char** argv = ["htc-vive-ros2-bridge"];
   rclcpp::init(argc, argv);//, argv);
   // rclcpp::spin(std::make_shared<StaticFramePublisher>(argv));
-  // rclcpp::shutdown();
   return 0;
 }
 
@@ -288,6 +263,7 @@ void CMainApplication::printDevicePositionalData(const char * deviceName, vr::Hm
 
 //-----------------------------------------------------------------------------
 // Purpose: Prints out position (x,y,z) and rotation (qw,qx,qy,qz) into the console.
+// Contain warnings of unhandled enumerations. 
 //-----------------------------------------------------------------------------
 void CMainApplication::printPositionalData()
 {
