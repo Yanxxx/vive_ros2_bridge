@@ -1,14 +1,11 @@
 #include <string>
 #include <stdarg.h>
 #include <openvr.h>
-#include "Matrices.h"
 
 //TODO: proper linux compatibility
 #ifdef __linux__
 #include <linuxcompathack.h>
 #endif
-
-#include <memory>
 
 // ros2 headers
 #include "geometry_msgs/msg/transform_stamped.hpp"
@@ -90,8 +87,6 @@ public:
 	
 	bool HandleInput();
 	void ProcessVREvent( const vr::VREvent_t & event );
-
-
 
 private: 
 	vr::IVRSystem *m_pHMD;
