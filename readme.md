@@ -2,6 +2,7 @@
 
 ![ROS2 Version](https://img.shields.io/badge/ROS2-Humble-blue)
 ![Platform](https://img.shields.io/badge/Ubuntu-22.04-orange)
+![Platform](https://img.shields.io/badge/VR-HTC-VIVE-red)
 ![License](https://img.shields.io/badge/License-MIT-green.svg)
 
 A simple and effective ROS2 bridge for HTC Vive devices, specifically tested on **Ubuntu 22.04** with **ROS2 Humble**. This node captures the position and orientation of Vive controllers and trackers and broadcasts them as `/tf` transforms.
